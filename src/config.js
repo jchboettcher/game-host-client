@@ -1,3 +1,3 @@
 export default {
-  graphqlUrl: 'https://hph-leaderboard-backend.herokuapp.com/',
+  graphqlUrl: 'https://game-host-server.herokuapp.com/',
 }
