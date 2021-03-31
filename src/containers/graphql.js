@@ -1,56 +1,103 @@
 import gql from 'graphql-tag'
 
-export const ALL_USERS = gql`
-  query allUsers {
-    allUsers {
+export const ALL_GAMES = gql`
+  query allGames {
+    allGames {
       id
-      displayName
-      score
-      updatedAt
+      roomCode
+      type
+      numPlayers
+      turn
+      public
+      createdAt
     }
   }
 `
 
-export const GET_USER = gql`
-  query userByName($name: String!, $password: String!) {
-    userByName(displayName: $name, password: $password) {
+export const GET_GAME = gql`
+  query gameByCode($roomCode: String!) {
+    gameByCode (roomCode: $roomCode) {
       id
-      displayName
-      rank
-      score
+      roomCode
+      type
+      numPlayers
+      turn
+      public
+      createdAt
     }
   }
 `
 
-// export const CHECK_PASS = gql`
-//   query checkPass($name: String!, $password: String!) {
-//     checkPass(displayName: $name, password: $password) {
-//       id
-//       displayName
-//       rank
-//       score
-//     }
-//   }
-// `
-
-export const ADD_USER = gql`
-  mutation addUser($input: AddUser!) {
-    addUser(input: $input) {
+export const GET_PLAYERS = gql`
+  query playersInRoom($roomCode: String!) {
+    playersInRoom (roomCode: $roomCode) {
       id
-      displayName
-      rank
-      score
+      name
+      playerNumber
+      joinedAt
+      game {
+        id
+        roomCode
+        numPlayers
+      }
     }
   }
 `
 
-export const UPDATE_SCORE = gql`
-  mutation updateScore($id: ID!, $score: Int!) {
-    updateScore(id: $id, newScore: $score) {
+export const UPDATE_TURN = gql`
+  mutation updateTurn($id: ID!, $newTurn: Int!) {
+    updateTurn (id: $id, newTurn: $newTurn) {
       id
-      displayName
-      score
-      rank
+      roomCode
+      type
+      numPlayers
+      turn
+      public
+      createdAt
+    }
+  }
+`
+
+export const ADD_GAME = gql`
+  mutation addGame($gameInput: AddGame!) {
+    addGame (input: $gameInput) {
+      id
+      roomCode
+      type
+      numPlayers
+      turn
+      public
+      createdAt
+    }
+  }
+`
+
+export const ADD_PLAYER = gql`
+  mutation addPlayer($playerInput: AddPlayer!) {
+    addPlayer (input: $playerInput) {
+      id
+      name
+      playerNumber
+      joinedAt
+      game {
+        id
+        roomCode
+        numPlayers
+      }
+    }
+  }
+`
+
+export const REDISTR_ORDER = gql`
+  mutation redistrOrder($id: ID!) {
+    redistrOrder (id: $id) {
+      id
+      roomCode
+      type
+      numPlayers
+      turn
+      public
+      createdAt
     }
   }
 `
